@@ -5,7 +5,7 @@
 
 ```
 ./mvnw package
-java -jar target/raton-loco-1.0.0.jar UNTIL=1
+java -jar target/raton-loco-1.1.0.jar UNTIL=1
 
 🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭
 🐭 R A T O N - L O C O  🐭

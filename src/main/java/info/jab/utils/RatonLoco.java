@@ -13,7 +13,6 @@ import java.util.stream.IntStream;
 public final class RatonLoco {
 
     private static final int DEFAULT_UNTIL = 5 * 60;
-    private static final int DEFAULT_PAUSE = 5000;
 
     private static final String MOUSE_EMOJI = "\uD83D\uDC2D";
     private static final String CHEESE_EMOJI = "\uD83E\uDDC0";
@@ -55,10 +54,12 @@ public final class RatonLoco {
             if (rawParams[0].equals("UNTIL")) {
                 try {
                     until = Integer.parseInt(rawParams[1]);
+                    String os = System.getProperty("os.name");
+                    String mouse = os.startsWith("Win") ? "mouse" : MOUSE_EMOJI;
                     if (until == 1) {
-                        System.out.println("The " + MOUSE_EMOJI + " will work for " + until + " minute.");
+                        System.out.println("The " + mouse + " will work for " + until + " minute.");
                     } else {
-                        System.out.println("The " + MOUSE_EMOJI + " will work for " + until + " minutes.");
+                        System.out.println("The " + mouse + " will work for " + until + " minutes.");
                     }
                     configuration.put("UNTIL", until);
                 } catch (NumberFormatException ex) {
@@ -84,10 +85,11 @@ public final class RatonLoco {
         Integer maxY = 400;
         Random random = new Random();
         Integer until = configuration.get("UNTIL");
+        Integer defaultPause = 10000;
 
         while (true) {
             robot.mouseMove(random.nextInt(maxX), random.nextInt(maxY));
-            Thread.sleep(DEFAULT_PAUSE);
+            Thread.sleep(defaultPause);
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
@@ -95,7 +97,7 @@ public final class RatonLoco {
             String os = System.getProperty("os.name");
             if (duration.toMinutes() == until) {
                 if (os.startsWith("Win")) {
-                    System.out.println(dtf.format(now) + "The mouse escaped with the cheese");
+                    System.out.println(dtf.format(now) + " The mouse escaped with the cheese");
                 } else {
                     System.out.println(dtf.format(now) + " " + MOUSE_EMOJI + " escaped with the " + CHEESE_EMOJI);
                 }

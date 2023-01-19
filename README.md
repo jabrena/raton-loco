@@ -27,6 +27,7 @@ sdk install jbang
 jbang cache clear
 jbang catalog update
 jbang catalog list jabrena
+jbang raton-loco@jabrena HELP
 jbang raton-loco@jabrena UNTIL=1
 ```
 

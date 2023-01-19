@@ -1,5 +1,5 @@
 # raton-loco
-🐭 Raton Loco is a Windows utility to avoid the Screesaver
+🐭 Raton Loco is a Windows utility to avoid the Screensaver
 
 ## Usage
 
@@ -18,6 +18,15 @@ The 🐭 will work for 1 minute.
 2023/01/19 13:57:05 🐭
 2023/01/19 13:57:15 🐭
 2023/01/19 13:57:25 🐭 escaped with the 🧀
+```
+
+### Jbang support
+
+```
+sdk install jbang
+jbang catalog update
+jbang catalog list jabrena
+jbang raton-loco@jabrena UNTIL=1
 ```
 
 ## Other commands

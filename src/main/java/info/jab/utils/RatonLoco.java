@@ -1,3 +1,5 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+
 package info.jab.utils;
 
 import java.awt.AWTException;

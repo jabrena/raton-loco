@@ -60,7 +60,7 @@ public final class RatonLoco {
             configuration.put(PARAMETER_UNTIL, DEFAULT_UNTIL_VALUE);
         }
 
-        //Show valus
+        //Show values
         String mouse = OS.startsWith("Win") ? "mouse" : MOUSE_EMOJI;
         Integer until = configuration.get(PARAMETER_UNTIL);
         if (until == 1) {

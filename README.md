@@ -24,6 +24,7 @@ The 🐭 will work for 1 minute.
 
 ```
 sdk install jbang
+jbang cache clear
 jbang catalog update
 jbang catalog list jabrena
 jbang raton-loco@jabrena UNTIL=1

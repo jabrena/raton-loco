@@ -16,6 +16,7 @@ public final class RatonLoco {
 
     private static final String PARAMETER_UNTIL = "UNTIL";
     private static final int DEFAULT_UNTIL_VALUE = 8 * 60;
+    private static final String PARAMETER_HELP = "HELP";
 
     private static final String MOUSE_EMOJI = "\uD83D\uDC2D";
     private static final String CHEESE_EMOJI = "\uD83E\uDDC0";
@@ -43,30 +44,50 @@ public final class RatonLoco {
     private static Map<String, Integer> processConfiguration(String[] args) {
         Map<String, Integer> configuration = new HashMap<>();
 
-        if (args.length == 1) {
+        if (args.length > 0) {
+            if (args.length > 1) {
+                System.out.println("The utility only accepts an unique parameter: HELP | UNTIL=x");
+                System.out.println();
+                System.exit(1);
+            }
             String[] rawParams = args[0].split("=");
             if (rawParams[0].equals(PARAMETER_UNTIL)) {
                 try {
-                    Integer until = Integer.parseInt(rawParams[1]);
-                    String mouse = OS.startsWith("Win") ? "mouse" : MOUSE_EMOJI;
-                    if (until == 1) {
-                        System.out.println("The " + mouse + " will work for " + until + " minute.");
-                    } else {
-                        System.out.println("The " + mouse + " will work for " + until + " minutes.");
-                    }
-                    configuration.put(PARAMETER_UNTIL, until);
+                    configuration.put(PARAMETER_UNTIL, Integer.parseInt(rawParams[1]));
                 } catch (NumberFormatException ex) {
-                    System.err.println("Parameter " + PARAMETER_UNTIL + " only accepts integers");
+                    System.err.println("Parameter " + PARAMETER_UNTIL + " only accepts a non decimal value");
+                    System.out.println();
                     System.exit(1);
                 }
             }
+            if (rawParams[0].equals(PARAMETER_HELP)) {
+                System.out.println("'Raton loco' is a Windows utility to avoid the Screensaver.");
+                System.out.println();
+                System.out.println("Usecase: you have a computer that you need to be logged");
+                System.out.println("         but in few minutes if you don´t interact with it, ");
+                System.out.println("         it enter the Screensaver. This utility avoid this case");
+                System.out.println();
+                System.out.println("Usage:   The utility accepts a parameter UNTIL=x ");
+                System.out.println("         where x is the number of minutes to run");
+                System.out.println();
+                System.exit(0);
+            }
         }
-        System.out.println();
 
         //Defaults
-        if (configuration.get(PARAMETER_UNTIL) == null) {
+        if (!configuration.containsKey(PARAMETER_UNTIL)) {
             configuration.put(PARAMETER_UNTIL, DEFAULT_UNTIL_VALUE);
         }
+
+        //Show values
+        String mouse = OS.startsWith("Win") ? "mouse" : MOUSE_EMOJI;
+        Integer until = configuration.get(PARAMETER_UNTIL);
+        if (until == 1) {
+            System.out.println("The " + mouse + " will work for " + until + " minute.");
+        } else {
+            System.out.println("The " + mouse + " will work for " + until + " minutes.");
+        }
+        System.out.println();
 
         return configuration;
     }

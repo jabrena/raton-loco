@@ -4,11 +4,12 @@
 ## Usage
 
 ```
-java -jar target/raton-loco-0.1.0-SNAPSHOT.jar UNTIL=1
+./mvnw package
+java -jar target/raton-loco-1.0.0.jar UNTIL=1
 
-🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭
+🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭
 🐭 R A T O N - L O C O  🐭
-🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭
+🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭
 The 🐭 will work for 1 minute.
 
 2023/01/19 13:56:35 🐭

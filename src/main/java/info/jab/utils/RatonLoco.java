@@ -43,13 +43,11 @@ public final class RatonLoco {
     private static Map<String, Integer> processConfiguration(String[] args) {
         Map<String, Integer> configuration = new HashMap<>();
 
-        Integer until;
         if (args.length == 1) {
             String[] rawParams = args[0].split("=");
             if (rawParams[0].equals(PARAMETER_UNTIL)) {
                 try {
-                    until = Integer.parseInt(rawParams[1]);
-                    configuration.put(PARAMETER_UNTIL, until);
+                    configuration.put(PARAMETER_UNTIL, Integer.parseInt(rawParams[1]));
                 } catch (NumberFormatException ex) {
                     System.err.println("Parameter " + PARAMETER_UNTIL + " only accepts integers");
                     System.exit(1);
@@ -62,9 +60,9 @@ public final class RatonLoco {
             configuration.put(PARAMETER_UNTIL, DEFAULT_UNTIL_VALUE);
         }
 
-        //Visualization
+        //Show valus
         String mouse = OS.startsWith("Win") ? "mouse" : MOUSE_EMOJI;
-        until = configuration.get(PARAMETER_UNTIL);
+        Integer until = configuration.get(PARAMETER_UNTIL);
         if (until == 1) {
             System.out.println("The " + mouse + " will work for " + until + " minute.");
         } else {

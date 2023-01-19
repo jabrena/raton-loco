@@ -31,21 +31,23 @@ public class RatonLoco {
 
         //Configuration
         Integer until = DEFAULT_UNTIL;
-        String[] rawParams = args[0].split("=");
-        if(rawParams[0].equals("UNTIL")) {
+        if(args.length > 0) {
+            String[] rawParams = args[0].split("=");
+            if (rawParams[0].equals("UNTIL")) {
 
-            try {
-                until = Integer.parseInt(rawParams[1]);
-                if(until == 1) {
-                    System.out.println("The " + MOUSE_EMOJI + " will work for " + until + " minute.");
-                } else {
-                    System.out.println("The " + MOUSE_EMOJI + " will work for " + until + " minutes.");
+                try {
+                    until = Integer.parseInt(rawParams[1]);
+                    if (until == 1) {
+                        System.out.println("The " + MOUSE_EMOJI + " will work for " + until + " minute.");
+                    } else {
+                        System.out.println("The " + MOUSE_EMOJI + " will work for " + until + " minutes.");
+                    }
+                } catch (NumberFormatException ex) {
+                    System.err.println("Parameter UNTIL only accepts integers");
+                    System.exit(1);
                 }
-            } catch (NumberFormatException ex) {
-                System.err.println("Parameter UNTIL only accepts integers");
-                System.exit(1);
-            }
 
+            }
         }
         System.out.println();
 

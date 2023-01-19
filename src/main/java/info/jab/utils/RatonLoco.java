@@ -50,7 +50,6 @@ public final class RatonLoco {
         Map<String, Integer> configuration = new HashMap<>();
 
         if (args.length > 0) {
-
             //First parameter
             String[] rawParams = args[0].split("=");
             if (rawParams[0].equals("UNTIL")) {

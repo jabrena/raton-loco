@@ -12,10 +12,12 @@ import java.util.stream.IntStream;
 
 public final class RatonLoco {
 
-    private static final int DEFAULT_UNTIL = 5 * 60;
+    private static final String PARAMETER_UNTIL = "UNTIL";
+    private static final int DEFAULT_UNTIL_VALUE = 8 * 60;
 
     private static final String MOUSE_EMOJI = "\uD83D\uDC2D";
     private static final String CHEESE_EMOJI = "\uD83E\uDDC0";
+    private static final String OS = System.getProperty("os.name");
 
     public static void main(String... args) throws Exception {
         //Header
@@ -29,41 +31,30 @@ public final class RatonLoco {
     }
 
     private static void showHeader() {
-        String os = System.getProperty("os.name");
-        if (os.startsWith("Win")) {
-            String mouseLine = IntStream.rangeClosed(1, 13).boxed().map(i -> "::").reduce("", String::concat);
-            System.out.println(mouseLine);
-            System.out.println("::" + " R A T O N - L O C O  " + "::");
-            System.out.println(mouseLine);
-        } else {
-            String mouseLine = IntStream.rangeClosed(1, 13).boxed().map(i -> MOUSE_EMOJI).reduce("", String::concat);
-            System.out.println(mouseLine);
-            System.out.println(MOUSE_EMOJI + " R A T O N - L O C O  " + MOUSE_EMOJI);
-            System.out.println(mouseLine);
-        }
+        String symbol = OS.startsWith("Win") ? "::" : MOUSE_EMOJI;
+        String mouseLine = IntStream.rangeClosed(1, 13).boxed().map(i -> symbol).reduce("", String::concat);
+        System.out.println(mouseLine);
+        System.out.println(symbol + " R A T O N - L O C O  " + symbol);
+        System.out.println(mouseLine);
     }
 
     private static Map<String, Integer> processConfiguration(String[] args) {
-        Integer until = DEFAULT_UNTIL;
-
         Map<String, Integer> configuration = new HashMap<>();
 
-        if (args.length > 0) {
-            //First parameter
+        if (args.length == 1) {
             String[] rawParams = args[0].split("=");
-            if (rawParams[0].equals("UNTIL")) {
+            if (rawParams[0].equals(PARAMETER_UNTIL)) {
                 try {
-                    until = Integer.parseInt(rawParams[1]);
-                    String os = System.getProperty("os.name");
-                    String mouse = os.startsWith("Win") ? "mouse" : MOUSE_EMOJI;
+                    Integer until = Integer.parseInt(rawParams[1]);
+                    String mouse = OS.startsWith("Win") ? "mouse" : MOUSE_EMOJI;
                     if (until == 1) {
                         System.out.println("The " + mouse + " will work for " + until + " minute.");
                     } else {
                         System.out.println("The " + mouse + " will work for " + until + " minutes.");
                     }
-                    configuration.put("UNTIL", until);
+                    configuration.put(PARAMETER_UNTIL, until);
                 } catch (NumberFormatException ex) {
-                    System.err.println("Parameter UNTIL only accepts integers");
+                    System.err.println("Parameter " + PARAMETER_UNTIL + " only accepts integers");
                     System.exit(1);
                 }
             }
@@ -71,8 +62,8 @@ public final class RatonLoco {
         System.out.println();
 
         //Defaults
-        if (configuration.get("UNTIL") == null) {
-            configuration.put("UNTIL", DEFAULT_UNTIL);
+        if (configuration.get(PARAMETER_UNTIL) == null) {
+            configuration.put(PARAMETER_UNTIL, DEFAULT_UNTIL_VALUE);
         }
 
         return configuration;
@@ -84,7 +75,7 @@ public final class RatonLoco {
         Integer maxX = 400;
         Integer maxY = 400;
         Random random = new Random();
-        Integer until = configuration.get("UNTIL");
+        Integer until = configuration.get(PARAMETER_UNTIL);
         Integer defaultPause = 10000;
 
         while (true) {
@@ -94,16 +85,15 @@ public final class RatonLoco {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             Duration duration = Duration.between(start, now);
-            String os = System.getProperty("os.name");
             if (duration.toMinutes() == until) {
-                if (os.startsWith("Win")) {
+                if (OS.startsWith("Win")) {
                     System.out.println(dtf.format(now) + " The mouse escaped with the cheese");
                 } else {
                     System.out.println(dtf.format(now) + " " + MOUSE_EMOJI + " escaped with the " + CHEESE_EMOJI);
                 }
                 break;
             } else {
-                System.out.println(dtf.format(now) + " " + (os.startsWith("Win") ? "" : MOUSE_EMOJI));
+                System.out.println(dtf.format(now) + " " + (OS.startsWith("Win") ? "" : MOUSE_EMOJI));
             }
         }
     }

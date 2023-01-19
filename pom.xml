@@ -18,6 +18,70 @@
 
     <build>
         <plugins>
+            <!-- Checkstyle -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.2.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>9.3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <!-- https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml -->
+                    <configLocation>src/checkstyle/google_checks.xml</configLocation>
+                    <suppressionsLocation>src/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <violationSeverity>warning</violationSeverity>
+                    <failOnViolation>true</failOnViolation>
+                    <maxAllowedViolations>0</maxAllowedViolations>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Prettier -->
+            <plugin>
+                <groupId>com.hubspot.maven.plugins</groupId>
+                <artifactId>prettier-maven-plugin</artifactId>
+                <version>0.18</version>
+                <configuration>
+                    <prettierJavaVersion>2.0.0</prettierJavaVersion>
+                    <printWidth>120</printWidth>
+                    <tabWidth>4</tabWidth>
+                    <useTabs>false</useTabs>
+                    <ignoreConfigFile>true</ignoreConfigFile>
+                    <ignoreEditorConfig>true</ignoreEditorConfig>
+                    <!-- Use <inputGlobs> to override the default input patterns -->
+                    <inputGlobs>
+                        <!-- These are the default patterns, you can omit <inputGlobs> entirely unless you want to override them -->
+                        <inputGlob>src/main/java/**/*.java</inputGlob>
+                        <inputGlob>src/test/java/**/*.java</inputGlob>
+                    </inputGlobs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

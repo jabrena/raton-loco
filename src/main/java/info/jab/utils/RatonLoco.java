@@ -43,17 +43,12 @@ public final class RatonLoco {
     private static Map<String, Integer> processConfiguration(String[] args) {
         Map<String, Integer> configuration = new HashMap<>();
 
+        Integer until;
         if (args.length == 1) {
             String[] rawParams = args[0].split("=");
             if (rawParams[0].equals(PARAMETER_UNTIL)) {
                 try {
-                    Integer until = Integer.parseInt(rawParams[1]);
-                    String mouse = OS.startsWith("Win") ? "mouse" : MOUSE_EMOJI;
-                    if (until == 1) {
-                        System.out.println("The " + mouse + " will work for " + until + " minute.");
-                    } else {
-                        System.out.println("The " + mouse + " will work for " + until + " minutes.");
-                    }
+                    until = Integer.parseInt(rawParams[1]);
                     configuration.put(PARAMETER_UNTIL, until);
                 } catch (NumberFormatException ex) {
                     System.err.println("Parameter " + PARAMETER_UNTIL + " only accepts integers");
@@ -61,12 +56,21 @@ public final class RatonLoco {
                 }
             }
         }
-        System.out.println();
 
         //Defaults
-        if (configuration.get(PARAMETER_UNTIL) == null) {
+        if (!configuration.containsKey(PARAMETER_UNTIL)) {
             configuration.put(PARAMETER_UNTIL, DEFAULT_UNTIL_VALUE);
         }
+
+        //Visualization
+        String mouse = OS.startsWith("Win") ? "mouse" : MOUSE_EMOJI;
+        until = configuration.get(PARAMETER_UNTIL);
+        if (until == 1) {
+            System.out.println("The " + mouse + " will work for " + until + " minute.");
+        } else {
+            System.out.println("The " + mouse + " will work for " + until + " minutes.");
+        }
+        System.out.println();
 
         return configuration;
     }

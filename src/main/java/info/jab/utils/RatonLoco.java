@@ -15,7 +15,8 @@ import java.util.stream.IntStream;
 public final class RatonLoco {
 
     private static final String PARAMETER_UNTIL = "UNTIL";
-    private static final int DEFAULT_UNTIL_VALUE = 8 * 60;
+    private static final int DEFAULT_UNTIL_VALUE = 9 * 60;
+    private static final int DEFAULT_PAUSE = 60 * 1000;
     private static final String PARAMETER_HELP = "HELP";
 
     private static final String MOUSE_EMOJI = "\uD83D\uDC2D";
@@ -99,14 +100,17 @@ public final class RatonLoco {
         Integer maxY = 400;
         Random random = new Random();
         Integer until = configuration.get(PARAMETER_UNTIL);
-        Integer defaultPause = 10000;
+        Integer defaultPause = DEFAULT_PAUSE;
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(dtf.format(now) + " " + (OS.startsWith("Win") ? "" : MOUSE_EMOJI));
 
         while (true) {
             robot.mouseMove(random.nextInt(maxX), random.nextInt(maxY));
             Thread.sleep(defaultPause);
 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
+            now = LocalDateTime.now();
             Duration duration = Duration.between(start, now);
             if (duration.toMinutes() == until) {
                 if (OS.startsWith("Win")) {

@@ -1,4 +1,7 @@
 # raton-loco
+
+[![CI Builds](https://github.com/jabrena/raton-loco/actions/workflows/build.yaml/badge.svg)](https://github.com/jabrena/raton-loco/actions/workflows/build.yaml)
+
 🐭 Raton Loco is a Windows utility to avoid the Screensaver
 
 ## Usage

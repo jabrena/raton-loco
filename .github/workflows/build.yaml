@@ -28,4 +28,4 @@ jobs:
         with:
           name: Upload jar
           path: |
-            target/raton-loco-1.3.0.jar
+            target/raton-loco-1.4.0.jar

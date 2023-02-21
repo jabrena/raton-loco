@@ -8,7 +8,7 @@
 
 ```
 ./mvnw package
-java -jar target/raton-loco-1.4.0.jar -h
+java -jar target/raton-loco-1.5.0.jar -h
 
 🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭
 🐭 R A T O N - L O C O  🐭
@@ -20,7 +20,7 @@ interact with it in a period of time, then the Operating System will show a
 Screensaver. This utility avoid this case.
   -h, --help                 Show this help message and exit.
   -p, --pause=<pauseParam>   how many minutes until next mouse movement
-  -u, --until=<untilParam>   where x is the number of minutes to run
+  -u, --until=<untilParam>   where x is the number of hours to run
   -V, --version              Print version information and exit.
 ```
 

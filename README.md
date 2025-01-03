@@ -7,8 +7,8 @@
 ## Usage
 
 ```
-./mvnw package
-java -jar target/raton-loco-1.5.0.jar -h
+./mvnw clean package
+java -jar target/raton-loco-1.6.0.jar -h
 
 🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭🐭
 🐭 R A T O N - L O C O  🐭
@@ -27,6 +27,7 @@ Screensaver. This utility avoid this case.
 ### Jbang support
 
 ```
+sdk env install
 sdk install jbang
 jbang cache clear
 jbang catalog update
@@ -37,7 +38,7 @@ jbang raton-loco@jabrena -h
 ## Other commands
 
 ```
-mvn prettier:write
-mvn versions:display-dependency-updates
-mvn versions:display-plugin-updates
+./mvnw prettier:write
+./mvnw versions:display-dependency-updates
+./mvnw versions:display-plugin-updates
 ```
